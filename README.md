@@ -83,5 +83,212 @@ class MyMathTest {
 ```
 ![Alt text](image-16.png)
 # 265 Step-3 Your first code and first unit test
+### Let's create another test case
+```java
+package com.adi.junit;
 
+import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
+class MyMathTest {
+
+	@Test
+	void test() {
+		MyMath math = new MyMath();
+		int numbers[] = { 1, 2, 3 };
+		int result = math.calculateSum(numbers);
+		System.out.println(result);
+		int expectedResult = 6;
+		assertEquals(expectedResult, result);
+	}
+	
+	//Create another test scenario 
+	// test with 0 element or no element in array
+	//  {} ==> 0
+	@Test
+	void test1() {
+		MyMath math = new MyMath();
+		int numbers[] = {};
+		int result = math.calculateSum(numbers);
+		System.out.println(result);
+		int expectedResult = 0;
+		assertEquals(expectedResult, result);
+	}	
+}
+```
+![Alt text](image-17.png)
+### There is lot of duplicacy in code let's remove and also we inline all things
+![Alt text](image-18.png)
+```java
+package com.adi.junit;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class MyMathTest {
+	
+	private MyMath math = new MyMath();
+	
+	@Test
+	void calculateSum_ThreeMemberArray() {
+		
+		assertEquals(6, math.calculateSum(new int[] { 1, 2, 3 }));
+	}
+	
+	//Create another test scenario 
+	// test with 0 element or no element in array
+	//  {} ==> 0
+	@Test
+	void calculateSum_ZeroLengthArray() {
+		
+		assertEquals(0, math.calculateSum(new int[] {}));
+	}	
+}
+```
+![Alt text](image-19.png)
+## Advantage
+- Jaise apne code commit kiya version control ke andar, so devops ye aapki unit test continous integration se chalate rehta.
+- Agar kisne usme chechad kari aapko sidha mail aavenga. Ki ***A bug was introduced and this unit test fails.***
+# 266 Step-04 Exploring other assert method.
+### Create a new JunitTest file
+ctr + N 
+![Alt text](image-20.png)
+![Alt text](image-21.png)
+![Alt text](image-22.png)
+![Alt text](image-23.png)
+![Alt text](image-24.png)
+```java
+package com.adi.junit;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+class MyAssertTest {
+
+	List<String> todos = Arrays.asList("AWS","AZURE","DEVOPS");
+	@Test
+	void test() {
+	
+		//There are lot of assert method present here
+		//  type assert. and u will see all methods		
+		
+		// LHS --> expected value
+		// RHS --> actual value
+		// message also u can provide
+		
+		//for boolean value	
+		assertEquals(true, todos.contains("AWS"));//Green Bar
+		
+		//U can test with number as well
+		assertEquals(3, todos.size()); //Green BAR
+		
+		//Shortcut methods only availble for booleans
+		assertTrue(todos.contains("AWS"));//Green Bar
+		assertFalse(todos.contains("GCP"));//Green BAR
+		
+		//It can also support the message
+		assertTrue("Sth went wrong",true);
+		assertEquals(3, todos.size(),"Nothing happen");
+		
+		//assertNull, assertNotNull
+		
+		//arrays equals
+		assertArrayEquals(new int[] {1,2}, new int[] {1,2});//Green Bar
+		
+		//U can compare assertEquals with any datatype you want
+		}		
+	}
+
+```
+# 267 Step-5 exploring few important junit annotation.
+Junit5 also supports few annotations like BeforAll,BeforeEach,AfterAll and AfterEach  
+ctr + N
+![Alt text](image-25.png)
+### One important thing that you need to remember about JUnit is that the JUnit framework does not guarantee the execution in the same order you have in here.
+![Alt text](image-26.png)
+![Alt text](image-27.png)
+### Common setup you want to do for all the test
+![Alt text](image-29.png)
+![Alt text](image-28.png)
+#### beforeAll() method should be static- good improvement 
+### Since beforeAll() method is a class level method, it run before all the tests(). Isiliye uko static hona
+![Alt text](image-30.png)
+```java
+package com.adi.junit;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class MyBeforAfterTest {
+	// Common setup for all methods
+	// Setup for all test
+	@BeforeAll
+	static void beforeAll() {
+		System.out.println("before all");
+	}
+
+	// Any set up need to be done/run before each method
+	// use beforeEach()
+	// Setup for specific test
+	@BeforeEach
+	void beforEach() {
+		System.out.println("Before Each");
+	}
+
+	// test
+	@Test
+	void test1() {
+		System.out.println("Test1");
+	}
+
+	@Test
+	void test2() {
+		System.out.println("Test2");
+	}
+
+	@Test
+	void test3() {
+		System.out.println("Test3");
+	}
+
+	// u have to perform clean up activity after each method use afterEach()
+	// Cleanup for specific test
+	@AfterEach
+	void afterEach() {
+		System.out.println("After Each");
+	}
+
+	// Cleanup for all test
+	@AfterAll
+	static void afterAll() {
+		System.out.println("after all");
+	}
+}
+Ouput:
+before all
+Before Each
+Test1
+After Each
+Before Each
+Test2
+After Each
+Before Each
+Test3
+After Each
+after all
+```
+![Alt text](image-31.png)
+# ***SECTION Appendix - 12. Introduction to MOKITO***
+ 
