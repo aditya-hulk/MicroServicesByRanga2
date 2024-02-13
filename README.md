@@ -291,4 +291,34 @@ after all
 ```
 ![Alt text](image-31.png)
 # ***SECTION Appendix - 12. Introduction to MOKITO***
- 
+# 269 Step-0 Introduction : Mokito in 5 steps
+![Alt text](image-32.png)
+Whenever we talk about applications,
+they have multiple layers.
+You have a web layer, business layer, data layer.
+
+You have thousands of classes talking to each other.
+Each of the classes have multiple dependencies,  
+so the question is,  
+***how do you write unit tests for classes
+with multiple dependencies?  
+How do you replace the dependencies that are present for a specific class?***
+
+stub mean in programming?
+ - A method stub or simply stub in software development is a piece of code used to stand in for some other programming functionality.    
+  A stub may simulate the behavior of existing code (such as a procedure on a remote machine, such methods are often called mocks) or be a temporary substitute for yet-to-be-developed code.
+# 270 Step-1 Setting up a spring  boot project.
+![Alt text](image-33.png)
+![Alt text](image-34.png)
+### If you go to pom.xml you would see starter-test and this depedency brings mokito
+![Alt text](image-35.png)
+### If i go in Effective pom in dependency section and search for mokito i will see mokito-version
+![Alt text](image-36.png)
+### having dependency
+![Alt text](image-37.png)
+![Alt text](image-38.png)
+![Alt text](image-39.png)
+### I want to test this method without having without having a real data interface,without actually talking to a database.
+### How do we do that?
+# 271. Step-2 Understanding problem with Stubs.
+
